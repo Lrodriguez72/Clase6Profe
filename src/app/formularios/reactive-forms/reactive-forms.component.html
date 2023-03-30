@@ -14,13 +14,13 @@
         <input
           formControlName="nombre"
           type="text"
-          [ngClass]="{ 'is-invalid': registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched }"
+          [ngClass]="{ 'is-invalid': nombreControlIsInvalid }"
           class="form-control"
           id="inputFirstName"
         >
         <div class="form-text">Mínimo 6 caracteres.</div>
         <div
-          *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.touched"
+          *ngIf="nombreControl?.hasError('required') && nombreControlIsInvalid"
           class="invalid-feedback">
           Este campo es requerido.
         </div>
@@ -62,36 +62,59 @@
 
 
 
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <label for="inputPassword4" class="form-label">Contraseña</label>
         <input type="password" class="form-control" id="inputPassword4">
         <div class="form-text">Mínimo 6 caracteres.</div>
-      </div>
-      <div class="col-12">
-        <label for="inputAddress" class="form-label">Dirección</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-      </div>
-      <div class="col-12">
-        <label for="inputAddress2" class="form-label">Dirección 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-      </div>
-      <div class="col-md-6">
-        <label for="inputCity" class="form-label">Ciudad</label>
-        <input type="text" class="form-control" id="inputCity">
-      </div>
-      <div class="col-md-4">
-        <label for="inputState" class="form-label">Provincia</label>
-        <select id="inputState" class="form-select">
-          <option selected>Choose...</option>
-          <option>Buenos Aires</option>
-          <option>San Juan</option>
-          <option>Mendoza</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
-      </div>
+      </div> -->
+
+
+
+      <ng-container formGroupName="localizacion">
+        <div class="col-12">
+          <label for="inputAddress" class="form-label">Dirección</label>
+          <input
+            formControlName="direccion_1"
+            type="text"
+            class="form-control"
+            id="inputAddress"
+            placeholder="1234 Main St"
+          >
+        </div>
+
+        <div class="col-12">
+          <label for="inputAddress2" class="form-label">Dirección 2</label>
+          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="col-md-6">
+          <label for="inputCity" class="form-label">Ciudad</label>
+          <input type="text" class="form-control" id="inputCity">
+        </div>
+
+
+
+        <div class="col-md-4">
+          <label for="inputState" class="form-label">Provincia</label>
+          <select
+            id="inputState"
+            class="form-select"
+            formControlName="provincia"
+            >
+            <option value="" selected>Choose...</option>
+            <option value="BS. AS.">Buenos Aires</option>
+            <option>San Juan</option>
+            <option>Mendoza</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <label for="inputZip" class="form-label">Zip</label>
+          <input type="text" class="form-control" id="inputZip">
+        </div>
+
+      </ng-container>
+
+
       <div class="col-12">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="gridCheck">
@@ -115,6 +138,6 @@
     <h2>Errores</h2>
 
     <h5>CONTROL NOMBRE</h5>
-    <pre>{{ registerForm.get('nombre')?.errors | json }}</pre>
+    <pre>{{ nombreControl?.errors | json }}</pre>
   </div>
 </div>

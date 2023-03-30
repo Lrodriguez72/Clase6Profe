@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -24,10 +24,26 @@ export class ReactiveFormsComponent {
       nombre: ['', [ Validators.required, Validators.minLength(3)] ],
       apellido: ['', [ Validators.required] ],
       email: this.emailControl,
+      localizacion: this.formBuilder.group({
+        ciudad: [''],
+        direccion_1: [''],
+        direccion_2: [''],
+        provincia: [''],
+        zip: [''],
+      }),
     });
 
     console.log(this.registerForm.get('nombre')?.value)
     console.log(this.emailControl.value);
+  }
+
+  get nombreControl(): AbstractControl | null {
+    return this.registerForm.get('nombre');
+  }
+
+
+  get nombreControlIsInvalid(): boolean {
+    return !!(this.nombreControl?.invalid && this.nombreControl.touched);
   }
 
 
